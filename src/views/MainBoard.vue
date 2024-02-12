@@ -34,14 +34,17 @@ export default {
         left: null,
         top: null,
       },
+
+      currentTaskId: null, // идентификатор текущей задачи в которой открыто контектное меню 
     }
   },
 
 
   methods: {
-    openContextMenu(e) {
-      this.contextMenuPosition.left = e.clientX;
-      this.contextMenuPosition.top = e.clientY;
+    openContextMenu(objForContextMenu) {
+      this.currentTaskId = objForContextMenu.taskId;
+      this.contextMenuPosition.left = objForContextMenu.e.clientX;
+      this.contextMenuPosition.top = objForContextMenu.e.clientY;
       this.contextMenu = !this.contextMenu;
     },
 
@@ -50,7 +53,7 @@ export default {
     },
 
     deleteCard() {
-      this.$store.dispatch('deleteCard')
+      this.$store.dispatch('deleteCard', this.currentTaskId);
     }
   }
 }

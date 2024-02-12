@@ -9,9 +9,9 @@
                 </div>
                 <div class="menu-item__text">Редактировать</div>
             </div>
-            <div class="context-menu__item menu-item">
+            <div class="context-menu__item menu-item" @click="deleteCard">
                 <div class="menu-item__icon">
-                    <DeleteIcon :color="'#86949E'" @eventUp="deleteCard" />
+                    <DeleteIcon :color="'#86949E'" />
                 </div>
                 <div class="menu-item__text">Удалить</div>
             </div>
@@ -59,7 +59,7 @@ export default {
         },
 
         deleteCard() {
-            this.$emit('deleteCard', )
+            this.$emit('deleteCard')
         },
     }
 }

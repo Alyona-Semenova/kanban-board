@@ -38,7 +38,12 @@ export default {
     methods: {
         openContextMenu(e) {
             this.iconColor = !this.iconColor;
-            this.$emit('openContextMenu', e);
+            let objForContextMenu ={
+                e: e,
+                taskId: this.task.id,
+            }
+
+            this.$emit('openContextMenu', objForContextMenu);
         }
     }
 }

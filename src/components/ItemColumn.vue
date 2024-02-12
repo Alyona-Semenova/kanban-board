@@ -16,7 +16,7 @@
             </template>
 
 
-            <div class="item-column__add" @click="addCard" >
+            <div v-if="!isAddingCard" class="item-column__add" @click="addCard" >
                 <AddIcon :color="'#3D86F4'" />
                 <div class="item-column__add-text">
                     Добавить
@@ -71,8 +71,8 @@ export default {
     },
 
     methods: {
-        openContextMenu(e) {
-            this.$emit('openContextMenu', e);
+        openContextMenu(objForContextMenu) {
+            this.$emit('openContextMenu', objForContextMenu);
         },
 
         /**

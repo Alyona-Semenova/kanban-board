@@ -60,7 +60,7 @@ export default new Vuex.Store({
       return state.tasks.filter(task => task.status === status);
     },
     tasksListLength: (state) => {
-      return state.tasks.length;
+      return state.tasks[state.tasks.length - 1].id
     }
   },
   mutations: {
@@ -71,6 +71,17 @@ export default new Vuex.Store({
     ADD_NEW_CARD(state, task) {
       state.tasks.push(task);
     },
+
+    /**
+     * Удаление задачи
+     * @param {} state 
+     */
+    DELETE_CARD(state, taskId) {
+      const index = state.tasks.findIndex(obj => obj.id === taskId);
+      if (index !== -1) {
+        state.tasks.splice(index, 1);
+      }
+    },
   },
   actions: {
     /**
@@ -78,6 +89,13 @@ export default new Vuex.Store({
      */
     addCard({ commit }, payload) {
       commit("ADD_NEW_CARD", payload);
+    },
+
+    /**
+    * Удаление задачи
+    */
+    deleteCard({ commit }, payload) {
+      commit("DELETE_CARD", payload);
     },
   },
   modules: {
