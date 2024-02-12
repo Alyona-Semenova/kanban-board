@@ -14,6 +14,9 @@
         @editCard="editCard" />
       </template>
 
+
+      <Notification></Notification>
+
     </div>
 
   </div>
@@ -22,12 +25,14 @@
 <script>
 import ContextMenu from '@/components/ContextMenu.vue';
 import ItemColumn from '@/components/ItemColumn.vue';
+import Notification from '@/components/Notification.vue';
 
 export default {
   name: 'MainBoard',
   components: {
     ItemColumn,
     ContextMenu,
+    Notification
   },
 
   data() {
@@ -66,7 +71,7 @@ export default {
      * Удалить карточку
      */
     deleteCard() {
-      this.$store.dispatch('deleteCard', this.currentTask.id);
+      this.$store.dispatch('deleteCard', this.currentTask);
     },
 
     /**

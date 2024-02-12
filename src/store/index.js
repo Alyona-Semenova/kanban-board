@@ -1,5 +1,9 @@
+import { uniqueId } from "lodash";
+
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VuexPlugins from "../plugins/vuexPlugin";
+import { MESSAGE_LIVE_TIME } from "@/common/constants.js";
 
 Vue.use(Vuex)
 
@@ -54,6 +58,8 @@ export default new Vuex.Store({
 
 
     ],
+
+    notifications: [],
   },
   getters: {
     tasksByStatus: (state) => (status) => {
@@ -89,13 +95,32 @@ export default new Vuex.Store({
      * @param {*} task
      */
     EDIT_CARD(state, taskForReplacement) {
-      
       state.tasks.forEach(task => {
         if (task.id == taskForReplacement.id) {
           task.status = taskForReplacement.status;
         }
       });
 
+    },
+
+    /**
+     * Удаление уведомления
+     * @param {*} state 
+     * @param {*} id 
+     */
+    DELETE_NOTIFICATION(state, id) {
+      state.notifications = state.notifications.filter(
+        (notification) => notification.id !== id
+      );
+    },
+
+    /**
+     * Добавить уведомление
+     * @param {*} state 
+     * @param {*} notification 
+     */
+    ADD_NOTIFICATION(state, notification) {
+      state.notifications = [...state.notifications, notification];
     },
   },
   actions: {
@@ -109,8 +134,9 @@ export default new Vuex.Store({
     /**
     * Удаление задачи
     */
-    deleteCard({ commit }, payload) {
-      commit("DELETE_CARD", payload);
+    deleteCard({ commit }, task) {
+      commit("DELETE_CARD", task.id);
+      this.$notifier.success("Задача удалена", task.title);
     },
 
 
@@ -120,7 +146,20 @@ export default new Vuex.Store({
     editCard({ commit }, payload) {
       commit("EDIT_CARD", payload);
     },
+
+    async createNotification({ commit }, { ...notification }) {
+      const uniqueNotification = {
+        ...notification,
+        id: uniqueId(),
+      };
+      commit("ADD_NOTIFICATION", uniqueNotification);
+      setTimeout(
+        () => commit("DELETE_NOTIFICATION", uniqueNotification.id),
+        MESSAGE_LIVE_TIME
+      );
+    },
   },
   modules: {
-  }
+  },
+  plugins: [VuexPlugins],
 })

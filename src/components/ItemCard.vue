@@ -10,18 +10,23 @@
             <div class="item-card__more">
                 <MoreIcon :color="iconColor ? '#3D86F4' : '#86949E'" @eventUp="openContextMenu" />
             </div>
+
+
         </div>
     </div>
 </template>
 
 
 <script>
+
+
 import MoreIcon from './icons/MoreIcon.vue';
 
 export default {
     name: 'ItemCard',
     components: {
-        MoreIcon,
+        MoreIcon
+
     },
     props: {
         task: {
@@ -44,6 +49,7 @@ export default {
             }
 
             this.$emit('openContextMenu', objForContextMenu);
+
         }
     }
 }

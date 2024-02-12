@@ -11,12 +11,11 @@
             @keyup.esc="closeCard"></textarea>
 
             <div class="add-card__buttons">
-                <div class="add-card__buttons-confirm">
-                    <ConfirmIcon :color="'#22C33D'" @eventUp="confirmCard" />
-                </div>
-
                 <div class="add-card__buttons-close">
                     <CloseIcon :color="'#F53D5C'" @eventUp="closeCard" />
+                </div>
+                <div class="add-card__buttons-confirm">
+                    <ConfirmIcon :color="'#22C33D'" @eventUp="confirmCard" />
                 </div>
 
             </div>
@@ -146,10 +145,14 @@ export default {
         top: 8px;
 
         &-confirm {
+            width: 20px;
+            height: 20px;
             cursor: pointer;
         }
 
         &-close {
+            width: 20px;
+            height: 20px;
             cursor: pointer;
         }
     }

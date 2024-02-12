@@ -1,0 +1,1 @@
+export const MESSAGE_LIVE_TIME = 5000;
