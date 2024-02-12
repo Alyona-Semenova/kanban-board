@@ -8,7 +8,10 @@
       <item-column :header-color="'#F76E85'" :header-text="'Доработать'" @openContextMenu="openContextMenu" :status-id="5"/>
 
       <template v-if="contextMenu">
-        <ContextMenu :contextMenuPosition="contextMenuPosition" @closeContextMenu="closeContextMenu" @deleteCard="deleteCard" />
+        <ContextMenu :contextMenuPosition="contextMenuPosition" 
+        @closeContextMenu="closeContextMenu" 
+        @deleteCard="deleteCard"
+        @editCard="editCard" />
       </template>
 
     </div>
@@ -29,31 +32,48 @@ export default {
 
   data() {
     return {
-      contextMenu: false,
-      contextMenuPosition: {
+      contextMenu: false, // открыто ли сейчас контекстное меню
+      contextMenuPosition: { // координаты для открытия контекстного меню
         left: null,
         top: null,
       },
 
-      currentTaskId: null, // идентификатор текущей задачи в которой открыто контектное меню 
+      currentTask: {}, // текущая задача в которой открыто контектное меню 
     }
   },
 
 
   methods: {
+    /**
+     * Открыть конетекстное меню
+     * @param {*} objForContextMenu 
+     */
     openContextMenu(objForContextMenu) {
-      this.currentTaskId = objForContextMenu.taskId;
+      this.currentTask = objForContextMenu.task;
       this.contextMenuPosition.left = objForContextMenu.e.clientX;
       this.contextMenuPosition.top = objForContextMenu.e.clientY;
       this.contextMenu = !this.contextMenu;
     },
 
+    /**
+     * Закрыть контекстное меню
+     */
     closeContextMenu() {
       this.contextMenu = false
     },
 
+    /**
+     * Удалить карточку
+     */
     deleteCard() {
-      this.$store.dispatch('deleteCard', this.currentTaskId);
+      this.$store.dispatch('deleteCard', this.currentTask.id);
+    },
+
+    /**
+     * Редактировать карточку
+     */
+    editCard() {
+      this.$store.dispatch('editCard', this.currentTask);
     }
   }
 }

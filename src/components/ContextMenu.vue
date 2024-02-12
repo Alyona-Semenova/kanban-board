@@ -3,15 +3,15 @@
 <template>
     <div class="context-menu" :style="getStyle()" @click="closeContextMenu">
         <div class="context-menu__content">
-            <div class="context-menu__item menu-item">
+            <!-- <div class="context-menu__item menu-item" @click="editCard">
                 <div class="menu-item__icon">
-                    <EditIcon :color="'#86949E'" />
+                    <EditIcon :color="'#86949E'" @eventUp="editCard"/>
                 </div>
                 <div class="menu-item__text">Редактировать</div>
-            </div>
+            </div> -->
             <div class="context-menu__item menu-item" @click="deleteCard">
                 <div class="menu-item__icon">
-                    <DeleteIcon :color="'#86949E'" />
+                    <DeleteIcon :color="'#86949E'" @eventUp="deleteCard"/>
                 </div>
                 <div class="menu-item__text">Удалить</div>
             </div>
@@ -23,13 +23,13 @@
 
 
 <script>
-import EditIcon from './icons/EditIcon.vue';
+// import EditIcon from './icons/EditIcon.vue';
 import DeleteIcon from './icons/DeleteIcon.vue';
 
 export default {
     name: 'ContextMenu',
     components: {
-        EditIcon,
+        // EditIcon,
         DeleteIcon,
     },
 
@@ -55,12 +55,24 @@ export default {
          * Закрыть контекстное меню
          */
         closeContextMenu() {
-            this.$emit('closeContextMenu')
+            this.$emit('closeContextMenu');
         },
 
+        /**
+         * Удалить карточку
+         */
         deleteCard() {
-            this.$emit('deleteCard')
+            this.$emit('deleteCard');
+            this.closeContextMenu();
         },
+
+        /**
+         * Редактировать карточку
+         */
+        editCard() {
+            this.$emit('editCard');
+            this.closeContextMenu();
+        }
     }
 }
 </script>
@@ -69,7 +81,6 @@ export default {
 <style lang="scss" scoped>
 .context-menu {
     width: 144px;
-    height: 76px;
     border: 1px solid #E3E5E8;
     border-radius: 8px;
     position: absolute;

@@ -8,15 +8,16 @@
             </div>
         </div>
 
-        <div class="item-column__content">
-            <ItemCard v-for="task in tasks" :key="task.id" @openContextMenu="openContextMenu" :task="task" />
+        <div class="item-column__content" @drop="onDrop" @dragover.prevent @dragenter.prevent>
+            <ItemCard v-for="task in tasks" :key="task.id" :task="task" :draggable="draggable"
+                @dragstart.native="startDrag($event, task.id)" @openContextMenu="openContextMenu" />
 
             <template v-if="isAddingCard">
                 <AddCard :status-id="statusId" @closeEdit="closeEdit" />
             </template>
 
 
-            <div v-if="!isAddingCard" class="item-column__add" @click="addCard" >
+            <div v-if="!isAddingCard" class="item-column__add" @click="addCard">
                 <AddIcon :color="'#3D86F4'" />
                 <div class="item-column__add-text">
                     Добавить
@@ -71,6 +72,10 @@ export default {
     },
 
     methods: {
+        /**
+         * Открыть контекстное меню
+         * @param {} objForContextMenu 
+         */
         openContextMenu(objForContextMenu) {
             this.$emit('openContextMenu', objForContextMenu);
         },
@@ -87,7 +92,35 @@ export default {
          */
         closeEdit() {
             this.isAddingCard = false;
-        }
+        },
+
+        /**
+         * Разрешаем перетаскивание элемента (если нужны ограничивающие условия - пишем их сюда)
+         */
+        draggable() {
+            return "draggable";
+        },
+
+
+        startDrag(evt, task) {
+            evt.dataTransfer.dropEffect = "move";
+            evt.dataTransfer.effectAllowed = "move";
+            evt.dataTransfer.setData("task", task);
+        },
+
+        onDrop(evt) {
+            this.dropTasks(evt.dataTransfer.getData("task"));
+        },
+
+        /**
+         * Отправляем в стор событие по изменению карточки
+         *  taskId - идентификатор элемента, который перетаскиваем
+         *  this.statusId - идентификатор колонки куда перетаскиваем элемент 
+         * @param {*} taskId
+         */
+        dropTasks(taskId) {
+            this.$store.dispatch("editCard", { id: taskId, status: this.statusId });
+        },
     },
 
 

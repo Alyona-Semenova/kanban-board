@@ -82,6 +82,21 @@ export default new Vuex.Store({
         state.tasks.splice(index, 1);
       }
     },
+
+    /**
+     * Редактирование карточки
+     * @param {*} state 
+     * @param {*} task
+     */
+    EDIT_CARD(state, taskForReplacement) {
+      
+      state.tasks.forEach(task => {
+        if (task.id == taskForReplacement.id) {
+          task.status = taskForReplacement.status;
+        }
+      });
+
+    },
   },
   actions: {
     /**
@@ -96,6 +111,14 @@ export default new Vuex.Store({
     */
     deleteCard({ commit }, payload) {
       commit("DELETE_CARD", payload);
+    },
+
+
+    /**
+    * Редактирование карточки
+    */
+    editCard({ commit }, payload) {
+      commit("EDIT_CARD", payload);
     },
   },
   modules: {
