@@ -71,7 +71,7 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 8px;
+        margin: 8px;
         position: relative;
     }
 
@@ -80,12 +80,14 @@ export default {
         text-align: left;
         font-size: 14px;
         color: #1C2530;
+        word-wrap: break-word;
+
     }
 
     &__more {
         cursor: pointer;
         position: absolute;
-        top: 10px;
+        top: 0;
         right: 6px;
     }
 }

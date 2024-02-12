@@ -136,6 +136,7 @@ export default {
     height: 100%;
     position: relative;
     min-width: 177px;
+    max-width: 200px;
 
     &__header {
         height: 32px;
@@ -166,6 +167,7 @@ export default {
         overflow-y: auto;
         overflow-x: hidden;
         scrollbar-width: thin;
+
     }
 
     &__add {

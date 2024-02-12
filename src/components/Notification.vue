@@ -1,3 +1,5 @@
+
+
 <template>
     <!-- <div v-if="notifications.length" class="notification__wrapper">
         <div v-for="({ text, type }, i) in notifications" :key="i" :class="`notification notification--${type}`">
@@ -10,8 +12,11 @@
 
         <div v-for="({ title, text, type }, i) in notifications" :key="i" :class="`notification notification--${type}`">
             <div class="notification__label" />
-            <div class="notification__icon-notification">
+            <div v-if="type == 'success'" class="notification__icon-notification">
                 <NotificationSuccessIcon :width="'24px'" :height="'24px'" />
+            </div>
+            <div v-if="type == 'error'" class="notification__icon-notification">
+                <NotificationErrorIcon :width="'24px'" :height="'24px'" />
             </div>
 
             <div class="notification__icon">
@@ -29,6 +34,7 @@
 </template>
   
 <script>
+import NotificationErrorIcon from './icons/NotificationErrorIcon.vue'
 import NotificationSuccessIcon from './icons/NotificationSuccessIcon.vue'
 import CloseIcon from './icons/CloseIcon.vue';
 import { mapState } from 'vuex';
@@ -37,6 +43,7 @@ export default {
     components: {
         CloseIcon,
         NotificationSuccessIcon,
+        NotificationErrorIcon,
     },
 
     computed: {
@@ -49,7 +56,6 @@ export default {
 <style lang="scss" scoped>
 .notification {
     box-sizing: border-box;
-    height: 76px;
     max-width: 100%;
     padding: 16px;
     text-align: center;
@@ -64,17 +70,19 @@ export default {
     &__text {
         margin: 0 16px 0 40px;
         height: 100%;
-        width: 100%;
+        width: calc(100% - 50px);
         text-align: left;
         display: flex;
         flex-direction: column;
         gap: 8px;
+        word-wrap: break-word;
+        position: relative;
 
-        & span:first-child{
+        & span:first-child {
             font-weight: 584;
         }
 
-        & span:last-child{
+        & span:last-child {
             font-weight: 400;
         }
     }
@@ -95,7 +103,6 @@ export default {
     &__label {
         border-radius: 8px 0 0 8px;
         width: 8px;
-        background: #22C33D;
         height: 100%;
 
         position: absolute;
@@ -117,25 +124,28 @@ export default {
         padding: 10px;
     }
 
-    // &--info {
-    //     border-color: blue;
-    //     background: blueviolet;
-    // }
+    &--info {
+        .notification__label {
+            background: #3D86F4;
+        }
+    }
 
-    // &--error {
-    //     border-color: red;
-    //     background: red;
-    // }
+    &--error {
+        .notification__label {
+            background: #F53D5C;
+        }
+    }
 
-    // &--success {
-    //     border-color: green;
-    //     background:greenyellow;
-    // }
+    &--success {
+        .notification__label {
+            background: #22C33D;
+        }
+    }
 
-    // &--warning {
-    //     border-color: orangered;
-    //     background: orange;
-    // }
+    &--warning {
+        .notification__label {
+            background: #FFD466;
+        }
+    }
 }
 </style>
-  

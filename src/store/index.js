@@ -9,13 +9,36 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    // соответствие статусов названию колонок
+    dictionaryStatuses: [
+      {
+        status: 1,
+        title: "На согласовании",
+      },
+
+      {
+        status: 2,
+        title: "Новые",
+      },
+
+      {
+        status: 3,
+        title: "В процессе",
+      },
+
+      {
+        status: 4,
+        title: "Готово",
+      },
+
+      {
+        status: 5,
+        title: "Доработать",
+      }
+    ],
+
+    // список задач
     tasks: [
-      // status 
-      // 1 - на согласовании
-      // 2 - новые
-      // 3 - в процессе
-      // 4 - готово
-      // 5 - доработать
       {
         id: 1,
         title: "Задача 1",
@@ -55,16 +78,17 @@ export default new Vuex.Store({
 
       },
 
-
-
     ],
 
     notifications: [],
   },
   getters: {
+    // получить задачи по id статуса
     tasksByStatus: (state) => (status) => {
       return state.tasks.filter(task => task.status === status);
     },
+
+    //получить id для новой задачи
     tasksListLength: (state) => {
       return state.tasks[state.tasks.length - 1].id
     }
@@ -75,6 +99,8 @@ export default new Vuex.Store({
      * @param {} state 
      */
     ADD_NEW_CARD(state, task) {
+      const status = state.dictionaryStatuses.filter(obj => obj.status === task.status);
+      this.$notifier.success(`Задача создана в "${status[0].title}"`, task.title);
       state.tasks.push(task);
     },
 
@@ -98,7 +124,10 @@ export default new Vuex.Store({
       state.tasks.forEach(task => {
         if (task.id == taskForReplacement.id) {
           task.status = taskForReplacement.status;
+          const status = state.dictionaryStatuses.filter(obj => obj.status === taskForReplacement.status);
+          this.$notifier.success(`Задача перенесена в "${status[0].title}"`, task.title);
         }
+
       });
 
     },
@@ -127,8 +156,13 @@ export default new Vuex.Store({
     /**
      * Добавление новой задачи
      */
-    addCard({ commit }, payload) {
-      commit("ADD_NEW_CARD", payload);
+    addCard({ commit }, task) {
+      if(task.title.length === 0){
+        this.$notifier.error("Задача не может быть пустой!");
+      } else {
+        commit("ADD_NEW_CARD", task);
+      }
+      
     },
 
     /**
