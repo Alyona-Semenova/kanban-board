@@ -37,9 +37,8 @@ export default {
 
     methods: {
         openContextMenu(e) {
-            console.log(e)
             this.iconColor = !this.iconColor;
-            this.$emit('openContextMenu', e)
+            this.$emit('openContextMenu', e);
         }
     }
 }

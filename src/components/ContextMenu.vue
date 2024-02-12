@@ -11,13 +11,12 @@
             </div>
             <div class="context-menu__item menu-item">
                 <div class="menu-item__icon">
-                    <DeleteIcon :color="'#86949E'" />
+                    <DeleteIcon :color="'#86949E'" @eventUp="deleteCard" />
                 </div>
                 <div class="menu-item__text">Удалить</div>
             </div>
 
         </div>
-
 
     </div>
 </template>
@@ -39,7 +38,6 @@ export default {
             type: Object,
             require: true,
         },
-
     },
 
 
@@ -58,6 +56,10 @@ export default {
          */
         closeContextMenu() {
             this.$emit('closeContextMenu')
+        },
+
+        deleteCard() {
+            this.$emit('deleteCard', )
         },
     }
 }

@@ -8,7 +8,7 @@
       <item-column :header-color="'#F76E85'" :header-text="'Доработать'" @openContextMenu="openContextMenu" :status-id="5"/>
 
       <template v-if="contextMenu">
-        <ContextMenu :contextMenuPosition="contextMenuPosition" @closeContextMenu="closeContextMenu" />
+        <ContextMenu :contextMenuPosition="contextMenuPosition" @closeContextMenu="closeContextMenu" @deleteCard="deleteCard" />
       </template>
 
     </div>
@@ -48,6 +48,10 @@ export default {
     closeContextMenu() {
       this.contextMenu = false
     },
+
+    deleteCard() {
+      this.$store.dispatch('deleteCard')
+    }
   }
 }
 </script>

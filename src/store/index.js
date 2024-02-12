@@ -36,12 +36,21 @@ export default new Vuex.Store({
         status: 4,
 
       },
+
       {
         id: 5,
         title: "Задача 5",
-        status: 5,
+        status: 1,
 
       },
+
+      {
+        id: 6,
+        title: "Задача 6",
+        status: 1,
+
+      },
+
 
 
     ],
@@ -50,10 +59,26 @@ export default new Vuex.Store({
     tasksByStatus: (state) => (status) => {
       return state.tasks.filter(task => task.status === status);
     },
+    tasksListLength: (state) => {
+      return state.tasks.length;
+    }
   },
   mutations: {
+    /**
+     * Мутация на добавление новой задачи 
+     * @param {} state 
+     */
+    ADD_NEW_CARD(state, task) {
+      state.tasks.push(task);
+    },
   },
   actions: {
+    /**
+     * Добавление новой задачи
+     */
+    addCard({ commit }, payload) {
+      commit("ADD_NEW_CARD", payload);
+    },
   },
   modules: {
   }

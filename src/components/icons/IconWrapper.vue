@@ -26,10 +26,6 @@
       },
     },
     computed: {
-      /**
-       * Конфигурация изображения
-       * @returns {{color: *, display: string, width: *, fontSize: string, height: *}}
-       */
       config() {
         return {
           color: this.color,
