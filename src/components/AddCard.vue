@@ -3,12 +3,7 @@
 <template>
     <div class="add-card">
         <div class="add-card__content">
-            <textarea ref="textarea" 
-            v-model="textCard" 
-            :placeholder="'Введите текст...'" 
-            @input="resize()"
-            @keyup.enter="confirmCard" 
-            @keyup.esc="closeCard"></textarea>
+            <textarea ref="textarea" v-model="textCard" :placeholder="'Введите текст...'" @input="resize()" @keyup.esc="closeCard"></textarea>
 
             <div class="add-card__buttons">
                 <div class="add-card__buttons-close">
@@ -74,7 +69,9 @@ export default {
             element.style.height = element.scrollHeight + lineHeight + "px";
         },
 
-        confirmCard() {
+        confirmCard(event) {
+            event.preventDefault();
+            console.log("this.textCard: ", this.textCard)
             let task = {
                 id: this.idForNewCard,
                 title: this.textCard,
@@ -83,7 +80,7 @@ export default {
             };
             this.$store.dispatch('addCard', task);
 
-            this.textCard != "" ? this.closeCard(): "";
+            this.textCard != "" ? this.closeCard() : "";
         },
 
         closeCard() {
@@ -97,7 +94,6 @@ export default {
 <style lang="scss" scoped>
 .add-card {
     width: 100%;
-    // height: 52px;
     border: 1px solid #3D86F4;
     border-radius: 8px;
     display: flex;

@@ -109,7 +109,6 @@ export default {
      * Закрыть уведомление 
      */
      closeNotification(id) {
-      console.log("closeNotification: ", id)
       this.$store.commit("DELETE_NOTIFICATION", id)
     }
 
