@@ -53,7 +53,6 @@ export default {
 
     methods: {
         closeNotification(id){
-            console.log("closeNotification: ", id);
             this.$emit("closeNotification", id);
         }
     }

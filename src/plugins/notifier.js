@@ -23,7 +23,6 @@ export default class Notifier {
   }
 
   error(title, text) {
-    console.log(text);
     this.#store.dispatch("createNotification", {
       title,
       text,

@@ -69,9 +69,7 @@ export default {
             element.style.height = element.scrollHeight + lineHeight + "px";
         },
 
-        confirmCard(event) {
-            event.preventDefault();
-            console.log("this.textCard: ", this.textCard)
+        confirmCard() {
             let task = {
                 id: this.idForNewCard,
                 title: this.textCard,

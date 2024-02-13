@@ -59,7 +59,6 @@ export default {
 <style lang="scss" scoped>
 .item-card {
     width: 100%;
-    // min-height: 34px;
     border: 1px solid #E3E5E8;
     border-radius: 8px;
     display: flex;
@@ -71,9 +70,7 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        // margin: 8px;
         position: relative;
-        // max-width: calc(100% - 33px);
     }
 
     &__text {
