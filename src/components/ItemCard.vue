@@ -5,7 +5,7 @@
         <div class="item-card__content">
 
             <div class="item-card__text">
-                {{ task.title }}
+              {{ task.title }} 
             </div>
             <div class="item-card__more">
                 <MoreIcon :color="iconColor ? '#3D86F4' : '#86949E'" @eventUp="openContextMenu" />
@@ -59,7 +59,7 @@ export default {
 <style lang="scss" scoped>
 .item-card {
     width: 100%;
-    min-height: 34px;
+    // min-height: 34px;
     border: 1px solid #E3E5E8;
     border-radius: 8px;
     display: flex;
@@ -71,23 +71,28 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin: 8px;
+        // margin: 8px;
         position: relative;
+        // max-width: calc(100% - 33px);
     }
 
     &__text {
-        width: calc(100% - 25px);
+        width: calc(100% - 33px);
+        max-width: calc(100% - 33px);
         text-align: left;
         font-size: 14px;
         color: #1C2530;
         word-wrap: break-word;
+        position: relative;
+        margin: 8px;
+
 
     }
 
     &__more {
         cursor: pointer;
         position: absolute;
-        top: 0;
+        top: 6px;
         right: 6px;
     }
 }

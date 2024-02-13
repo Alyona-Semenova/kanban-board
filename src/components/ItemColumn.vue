@@ -132,11 +132,11 @@ export default {
   
 <style lang="scss" scoped>
 .item-column {
-    flex: 4;
+    flex: 5;
     height: 100%;
     position: relative;
     min-width: 177px;
-    max-width: 200px;
+    max-width: calc(100vw / 5);
 
     &__header {
         height: 32px;

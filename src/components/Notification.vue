@@ -10,7 +10,7 @@
     <div v-if="notifications.length" class="notification__wrapper">
 
 
-        <div v-for="({ title, text, type }, i) in notifications" :key="i" :class="`notification notification--${type}`">
+        <div v-for="({ id, title, text, type }, i) in notifications" :key="i" :class="`notification notification--${type}`">
             <div class="notification__label" />
             <div v-if="type == 'success'" class="notification__icon-notification">
                 <NotificationSuccessIcon :width="'24px'" :height="'24px'" />
@@ -19,8 +19,8 @@
                 <NotificationErrorIcon :width="'24px'" :height="'24px'" />
             </div>
 
-            <div class="notification__icon">
-                <CloseIcon :color="'#86949E'" :width="'16px'" :height="'16px'" />
+            <div class="notification__icon" @click="closeNotification(id)">
+                <CloseIcon :color="'#86949E'" :width="'16px'" :height="'16px'" @eventUp="closeNotification(id)" />
             </div>
 
             <div class="notification__text">
@@ -48,6 +48,14 @@ export default {
 
     computed: {
         ...mapState(['notifications'])
+    },
+
+
+    methods: {
+        closeNotification(id){
+            console.log("closeNotification: ", id);
+            this.$emit("closeNotification", id);
+        }
     }
 };
 

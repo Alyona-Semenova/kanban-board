@@ -82,7 +82,8 @@ export default {
 
             };
             this.$store.dispatch('addCard', task);
-            this.closeCard();
+
+            this.textCard != "" ? this.closeCard(): "";
         },
 
         closeCard() {
@@ -107,10 +108,10 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 8px;
         position: relative;
 
         textarea {
+            margin: 8px 20px 8px 8px;
             width: calc(100% - 20px);
             box-sizing: border-box;
             border: none;

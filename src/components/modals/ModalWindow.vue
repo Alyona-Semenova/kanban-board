@@ -75,7 +75,6 @@ export default {
 <style lang="scss" scoped>
 .modal-window {
     width: 500px;
-    height: 196px;
     border-radius: 8px;
     z-index: 100;
     background: #FFFFFF;
@@ -88,12 +87,13 @@ export default {
 
     &__content {
         width: calc(100% - 80px);
-        height: calc(100% - 48px);
         margin: 24px 40px 24px 40px;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         gap: 24px;
+        position: relative;
+
 
     }
 
@@ -101,8 +101,7 @@ export default {
         position: absolute;
         width: 24px;
         height: 24px;
-        top: 16px;
-        right: 16px;
+        right: 0;
         cursor: pointer;
     }
 
@@ -115,10 +114,17 @@ export default {
     }
 
     &__text {
-        height: 18px;
+        position: relative;
+        width: 100%;
         font-weight: 400;
         font-size: 14px;
         line-height: 18px;
+        word-wrap: break-word;
+        text-align: left;
+
+        span {
+            width: 100%;
+        }
     }
 
     &__buttons {

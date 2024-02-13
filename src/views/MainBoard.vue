@@ -16,9 +16,10 @@
       </template>
 
 
-      <Notification></Notification>
+      <Notification @closeNotification="closeNotification"></Notification>
 
-      <ModalWindow v-if="modalWindow" :textTask="currentTask.title" @deleteCard="deleteCard" @closeModal="closeModal"></ModalWindow>
+      <ModalWindow v-if="modalWindow" :textTask="currentTask.title" @deleteCard="deleteCard" @closeModal="closeModal">
+      </ModalWindow>
       <div v-if="modalWindow" class="overlay"></div>
     </div>
 
@@ -104,6 +105,14 @@ export default {
       this.$store.dispatch('editCard', this.currentTask);
     },
 
+    /**
+     * Закрыть уведомление 
+     */
+     closeNotification(id) {
+      console.log("closeNotification: ", id)
+      this.$store.commit("DELETE_NOTIFICATION", id)
+    }
+
 
   }
 }
@@ -116,6 +125,8 @@ export default {
   justify-content: center;
   align-items: center;
   height: calc(100vh - 20px);
+  width: calc(100% - 50px);
+  margin: 0 auto;
 
   &__container {
     display: flex;

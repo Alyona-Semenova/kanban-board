@@ -138,6 +138,7 @@ export default new Vuex.Store({
      * @param {*} id 
      */
     DELETE_NOTIFICATION(state, id) {
+      console.log("DELETE_NOTIFICATION:", id)
       state.notifications = state.notifications.filter(
         (notification) => notification.id !== id
       );
